@@ -34,3 +34,4 @@ charts/affinity-metadata-service
 /black-box-tests/output*.html
 
 docs/restApi
+README*
