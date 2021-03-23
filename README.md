@@ -1,6 +1,5 @@
 # Architectural and service-level metadata
 
-----
 ## Example queries:
 
 Information about a team / stack / service (with tokenising):
