@@ -1,0 +1,26 @@
+package uk.co.crunch.persistence.entity
+
+object FactTypes {
+    const val PRODUCT = "PRODUCT"
+    const val STACK = "STACK"
+    const val OWNER = "OWNER"
+    const val BB_REPO = "BB_REPO"
+    const val GIT_BRANCH = "GIT_BRANCH"
+    const val LOGZ_URL = "LOGZ_URL"
+    const val CLOUD_CONFIG_PROFILE = "CLOUD_CONFIG_PROFILE"
+    const val MYSQL_SCHEMA_NAME = "MYSQL_SCHEMA_NAME"
+    const val RABBIT_EXCHANGE = "RABBIT_EXCHANGE"
+    const val RABBIT_QUEUE = "RABBIT_QUEUE"
+    const val RABBIT_LISTENER_COUNT = "RABBIT_LISTENER_COUNT"
+    const val RABBIT_LISTENER_ID = "RABBIT_LISTENER_ID"
+    const val PARENT_POM_VERSION = "PARENT_POM_VERSION"
+    const val SPRINGBOOT_VERSION = "SPRINGBOOT_VERSION"
+
+    val CUSTOM_ORDERING = listOf(
+        PRODUCT, STACK, OWNER, BB_REPO,
+        CLOUD_CONFIG_PROFILE,
+        MYSQL_SCHEMA_NAME,
+        RABBIT_EXCHANGE, RABBIT_QUEUE, RABBIT_LISTENER_COUNT,
+        RABBIT_LISTENER_ID, PARENT_POM_VERSION, SPRINGBOOT_VERSION
+    )
+}

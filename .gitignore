@@ -1,0 +1,34 @@
+target
+*.iml
+.idea
+/.editorconfig
+/kube-scripts
+/smokeTestDeploy.sh
+/*.version.txt
+# Ignore generated Helm Chart / Dockerfile
+Dockerfile*
+# Ignore generated Makefile
+Makefile
+
+# Ignore local build details
+image.version.*
+
+# Ignore generated logback.xml
+logback.xml
+
+# Ignore generated K8s logback.xml
+logback-k8s.xml
+
+run_local.sh
+pitest.sh
+
+dashboards/*generated.json
+
+# Ignore generated Helm Chart / Dockerfile
+Dockerfile
+charts/affinity-metadata-service
+
+/black-box-tests/run_tests.*
+/black-box-tests/local_tests.*
+/black-box-tests/get-platform-testing-version*
+/black-box-tests/output*.html

@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>uk.co.crunch</groupId>
+        <artifactId>spring-boot-parent</artifactId>
+        <version>5.6.65</version>
+    </parent>
+
+    <artifactId>affinity-metadata-service</artifactId>
+    <version>1.0.0</version>
+    <description>Architectural and service-level metadata</description>
+
+    <!-- We need this in each Q project, as current parent *must* not import this BOM
+    and while our starter can (and needs to), we cannot import it via the starter dependency -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>uk.co.crunch</groupId>
+            <artifactId>crunch-quarkus-starter</artifactId>
+        </dependency>
+
+        <!-- Hibernate ORM specific dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm</artifactId>
+        </dependency>
+
+        <!-- JDBC driver dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-h2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-graphql</artifactId>
+        </dependency>
+
+        <!-- Swagger annotations -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>uk.co.crunch</groupId>
+            <artifactId>crunch-quarkus-test-starter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <configuration>
+                    <javaParameters>true</javaParameters>
+                    <jvmTarget>1.8</jvmTarget>
+                    <compilerPlugins>
+                        <plugin>all-open</plugin>
+                        <plugin>jpa</plugin>
+                    </compilerPlugins>
+                    <pluginOptions>
+                        <option>all-open:annotation=javax.ws.rs.Path</option>
+                        <option>all-open:annotation=javax.enterprise.context.ApplicationScoped</option>
+                        <option>all-open:annotation=io.quarkus.test.junit.QuarkusTest</option>
+                    </pluginOptions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>uk.co.crunch</groupId>
+                <artifactId>crunch-services-maven-plugin</artifactId>
+                <configuration>
+                    <helm>
+                        <metadataTagProduct>Utilities</metadataTagProduct>
+                        <metadataTagStack>Utilities</metadataTagStack>
+                        <metadataTagOwner>Affinity</metadataTagOwner>
+
+                        <envVariables>
+                            <envVar>
+                                <name>CRUNCH_ENVIRONMENT</name>
+                                <value>{{ .Values.environment.name }}</value>
+                            </envVar>
+                        </envVariables>
+                    </helm>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                        <maven.home>${maven.home}</maven.home>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
+        </profile>
+    </profiles>
+</project>
