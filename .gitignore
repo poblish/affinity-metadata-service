@@ -32,3 +32,8 @@ charts/affinity-metadata-service
 /black-box-tests/local_tests.*
 /black-box-tests/get-platform-testing-version*
 /black-box-tests/output*.html
+
+docs/restApi
+README.md
+
+/black-box-tests/run_docker.bat
