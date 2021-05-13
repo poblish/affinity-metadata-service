@@ -19,6 +19,9 @@ Versions and their usage:
 
     http post https://environment/affinity-meta/graphql query='{ search(query:"PARENT_POM_VERSION") { facets { name, extraTags }}}'
     http post https://environment/affinity-meta/graphql query='{ search(query:"SPRINGBOOT_VERSION") { facets { name, type, extraTags }}}'
+
+Git branches - on Production and test:
+
     http post https://environment/affinity-meta/graphql query='{ search(query:"GIT_BRANCH") { facets { name, extraTags }}}'
     http post https://environment-test/affinity-meta/graphql query='{ search(query:"GIT_BRANCH") { facets { name, extraTags }}}'
 
