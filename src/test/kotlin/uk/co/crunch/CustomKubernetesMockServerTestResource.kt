@@ -16,11 +16,11 @@ class CustomKubernetesMockServerTestResource : KubernetesMockServerTestResource(
         val latteCM = ConfigMapBuilder().withNewMetadata()
             .withNamespace("default")
             .withName("latte-service-rabbitmq-topology")
-            .withLabels(mapOf("release" to "latte-service", "component" to "backend"))
-            .withAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
+            .addToLabels(mapOf("release" to "latte-service", "component" to "backend"))
+            .addToAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
             .withResourceVersion("1")
             .endMetadata()
-            .withData(
+            .addToData(
                 mapOf(
                     "latte-service-topology.json" to "{\"listeners\":[{\"id\":\"latte.queue.check-exists\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.check-exists\",\"routingKey\":\"latte.check-exists\"},{\"id\":\"latte.queue.count\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.count\",\"routingKey\":\"latte.count\"},{\"id\":\"latte.queue.create\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.create\",\"routingKey\":\"latte.create\"},{\"id\":\"latte.queue.delete\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.delete\",\"routingKey\":\"latte.delete\"},{\"id\":\"latte.queue.list\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.list\",\"routingKey\":\"latte.list\"},{\"id\":\"latte.queue.read\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.read\",\"routingKey\":\"latte.read\"},{\"id\":\"latte.queue.rename\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.rename\",\"routingKey\":\"latte.rename\"},{\"id\":\"latte.queue.zip\",\"exchange\":\"latte\",\"queue\":\"consumer.latte.producer.latte.zip\",\"routingKey\":\"latte.zip\"}],\"senders\":[]}"
                 )
@@ -30,11 +30,11 @@ class CustomKubernetesMockServerTestResource : KubernetesMockServerTestResource(
         val cappuccinoCM = ConfigMapBuilder().withNewMetadata()
             .withNamespace("default")
             .withName("crunch-cappuccino-service-rabbitmq-topology")
-            .withLabels(mapOf("release" to "crunch-cappuccino-service", "component" to "backend"))
-            .withAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
+            .addToLabels(mapOf("release" to "crunch-cappuccino-service", "component" to "backend"))
+            .addToAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
             .withResourceVersion("1")
             .endMetadata()
-            .withData(
+            .addToData(
                 mapOf(
                     "crunch-cappuccino-service-topology.json" to "{\"listeners\":[{\"id\":\"junk1\",\"exchange\":\"junkExc\",\"queue\":\"junkQ\",\"routingKey\":\"junkKey\"},{\"id\":\"createSupplierListener\",\"exchange\":\"cappuccino\",\"queue\":\"supplier.create\",\"routingKey\":\"supplier.create\"},{\"id\":\"getSuppliersListener\",\"exchange\":\"cappuccino\",\"queue\":\"suppliers.get\",\"routingKey\":\"suppliers.get\"}],\"senders\":[{\"id\":\"getDrinkAccountById\",\"exchange\":\"americano\",\"routingKey\":\"get.drink.account\"},{\"id\":\"getDrinkAccounts\",\"exchange\":\"americano\",\"routingKey\":\"get.drink.accounts\"},{\"id\":\"getCreditCardById\",\"exchange\":\"americano\",\"routingKey\":\"get.credit.card\"},{\"id\":\"getCreditCards\",\"exchange\":\"americano\",\"routingKey\":\"get.credit.cards\"},{\"id\":\"createDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.create\"},{\"id\":\"deleteDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.delete\"},{\"id\":\"listDocuments\",\"exchange\":\"latte\",\"routingKey\":\"latte.list\"},{\"id\":\"readDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.read\"},{\"id\":\"getTimedSecurityContext\",\"exchange\":\"tea\",\"routingKey\":\"public-api.session.validate-request\"},{\"id\":\"getTimedSecurityContext\",\"exchange\":\"tea\",\"routingKey\":\"abc\"}]}"
                 )
@@ -44,11 +44,11 @@ class CustomKubernetesMockServerTestResource : KubernetesMockServerTestResource(
         val cappuccinoCMWithListenerRemoved = ConfigMapBuilder().withNewMetadata()
             .withNamespace("default")
             .withName("crunch-cappuccino-service-rabbitmq-topology")
-            .withLabels(mapOf("release" to "crunch-cappuccino-service", "component" to "backend"))
-            .withAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
+            .addToLabels(mapOf("release" to "crunch-cappuccino-service", "component" to "backend"))
+            .addToAnnotations(mapOf("v1beta.k8s.crunch.co.uk/autoconfig-type" to "rabbitmq/topology"))
             .withResourceVersion("1")
             .endMetadata()
-            .withData(
+            .addToData(
                 mapOf(
                     "crunch-cappuccino-service-topology.json" to "{\"listeners\":[{\"id\":\"createSupplierListener\",\"exchange\":\"cappuccino\",\"queue\":\"supplier.create\",\"routingKey\":\"supplier.create\"},{\"id\":\"getSuppliersListener\",\"exchange\":\"cappuccino\",\"queue\":\"suppliers.get\",\"routingKey\":\"suppliers.get\"}],\"senders\":[{\"id\":\"getDrinkAccountById\",\"exchange\":\"americano\",\"routingKey\":\"get.drink.account\"},{\"id\":\"getDrinkAccounts\",\"exchange\":\"americano\",\"routingKey\":\"get.drink.accounts\"},{\"id\":\"getCreditCardById\",\"exchange\":\"americano\",\"routingKey\":\"get.credit.card\"},{\"id\":\"getCreditCards\",\"exchange\":\"americano\",\"routingKey\":\"get.credit.cards\"},{\"id\":\"createDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.create\"},{\"id\":\"deleteDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.delete\"},{\"id\":\"listDocuments\",\"exchange\":\"latte\",\"routingKey\":\"latte.list\"},{\"id\":\"readDocument\",\"exchange\":\"latte\",\"routingKey\":\"latte.read\"},{\"id\":\"getTimedSecurityContext\",\"exchange\":\"tea\",\"routingKey\":\"public-api.session.validate-request\"},{\"id\":\"getTimedSecurityContext\",\"exchange\":\"tea\",\"routingKey\":\"abc\"}]}"
                 )
@@ -78,8 +78,8 @@ class CustomKubernetesMockServerTestResource : KubernetesMockServerTestResource(
         val deployment = DeploymentBuilder()
             .withNewMetadata()
             .withName("crunch-cappuccino-service-backend")
-            .withAnnotations(mapOf("origin-repository" to "https://bitbucket.org/crunch-ondemand/crunch-cappuccino-service"))
-            .withLabels(
+            .addToAnnotations(mapOf("origin-repository" to "https://bitbucket.org/crunch-ondemand/crunch-cappuccino-service"))
+            .addToLabels(
                 mapOf(
                     "app" to "crunch-cappuccino-service",
                     "owner" to "MyTeam",

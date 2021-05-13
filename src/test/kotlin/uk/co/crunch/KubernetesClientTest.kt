@@ -22,6 +22,7 @@ class KubernetesClientTest {
 
     @Inject lateinit var facts: FactService
 
+    @Suppress("unused")
     companion object {
         @BeforeAll
         internal fun waitForK8s() {

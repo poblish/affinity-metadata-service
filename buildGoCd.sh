@@ -15,7 +15,7 @@ if [[ -n $service_filter && $service_filter != '.' ]]; then
 fi
 
 if [[ $(git rev-parse --abbrev-ref HEAD) == "master" ]] ; then
-  runMaven jdk-15-latest ${multimodule_settings} --no-transfer-progress clean org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report sonar:sonar -Dmaven.repo.local=/tmp -DGO_PIPELINE_COUNTER=r.${GO_PIPELINE_COUNTER}
+  runMaven jdk-15-latest ${multimodule_settings} --no-transfer-progress clean org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report sonar:sonar -Dmaven.repo.local=/tmp -DGO_PIPELINE_COUNTER=r.${GO_PIPELINE_COUNTER} -DJVM_DEBUG_DISALLOWED=1
 else
   runMaven jdk-15-latest ${multimodule_settings} --no-transfer-progress clean package -Dmaven.repo.local=/tmp -DGO_PIPELINE_COUNTER=r.${GO_PIPELINE_COUNTER}
 fi
